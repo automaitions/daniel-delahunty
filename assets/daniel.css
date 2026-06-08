@@ -1,6 +1,6 @@
 :root{
   --ink:#16181C; --ink-2:#1E2127; --paper:#F6F4F1; --white:#FFFFFF;
-  --accent:#FF5A1F; --accent-deep:#D63E0A; --success:#1FB57A;
+  --accent:#00DDD6; --accent-deep:#00B3AD; --success:#1FB57A;
   --slate:#5A6270; --slate-2:#8A9099; --line:#E4E0DB; --line-dark:#2C3037;
   --ff:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
   --display:"Anton",var(--ff); --head:"Archivo",var(--ff);
