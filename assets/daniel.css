@@ -166,7 +166,7 @@ h2.display{font-size:clamp(34px,5vw,68px)}
 /* faq */
 .acc{max-width:780px;margin:40px auto 0;border-top:1px solid var(--line)}
 .acc__i{border-bottom:1px solid var(--line)}
-.acc__q{width:100%;display:flex;justify-content:space-between;align-items:center;gap:20px;text-align:left;padding:22px 4px;font-family:var(--head);font-weight:700;font-size:16.5px}
+.acc__q{width:100%;display:flex;justify-content:space-between;align-items:center;gap:20px;text-align:left;padding:22px 4px;font-family:var(--head);font-weight:700;font-size:16.5px;color:var(--ink)}
 .acc__q::after{content:"+";font-size:24px;color:var(--accent);transition:.3s}
 .acc__q[aria-expanded="true"]::after{transform:rotate(45deg)}
 .acc__a{max-height:0;overflow:hidden;transition:max-height .35s var(--e)}
