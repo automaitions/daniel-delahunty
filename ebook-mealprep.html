@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Meal Prep Made Simple | Daniel Delahunty</title>
+<meta name="description" content="Prep once, eat well all week — a repeatable system that takes the daily decision out of eating healthy.">
+<meta name="theme-color" content="#16181C">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2316181C'/%3E%3Ctext x='16' y='23' font-family='Arial,sans-serif' font-size='19' font-weight='bold' fill='%2300DDD6' text-anchor='middle'%3ED%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/daniel.css">
+<script>document.documentElement.className='js';</script>
+</head>
+<body>
+<nav class="nav" id="nav">
+  <a href="index.html" class="nav__brand">Daniel Delahunty</a>
+  <div class="nav__links"><a href="index.html" class="nav__link">Home</a><div class="has-drop"><a href="coaching.html" class="nav__link">Coaching ▾</a><div class="drop"><a href="rise-above.html">Rise Above — 8-Week</a><a href="lean-for-life.html">Lean For Life</a><a href="in-person.html">In-Person (Gold Coast)</a></div></div><a href="pricing.html" class="nav__link">Pricing</a><a href="results.html" class="nav__link">Results</a><div class="has-drop"><a href="ebooks.html" class="nav__link is-active">Shop ▾</a><div class="drop"><a href="ebooks.html">E-books</a><a href="bundle.html">Ebook Bundle</a></div></div><a href="macros.html" class="nav__link">Macros</a><a href="faqs.html" class="nav__link">FAQs</a></div>
+  <a href="contact.html" class="nav__cta">Free Consult</a>
+  <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+</nav>
+<div class="drawer" id="drawer">
+  <a href="index.html" class="drawer__item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M4 11l8-7 8 7M6 10v9h12v-9"/></svg>Home</a>
+  <button class="drawer__item" id="coachToggle" aria-expanded="false" aria-controls="coachSub"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 9v6M6 7v10M9 12h6M18 7v10M21 9v6"/></svg>Coaching<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+  <div class="drawer__sub" id="coachSub">
+    <a href="rise-above.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M4 7h16v13H4zM4 7l2-3h12l2 3M9 11h6"/></svg>Rise Above — 8-Week</a>
+    <a href="lean-for-life.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 12a3 3 0 100-.1M17 12a3 3 0 110-.1M7 12c0-3 3-5 5-5s5 2 5 5-3 5-5 5-5-2-5-5z"/></svg>Lean For Life — Online</a>
+    <a href="in-person.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 21s7-6.5 7-12a7 7 0 10-14 0c0 5.5 7 12 7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>In-Person (Gold Coast)</a>
+  </div>
+  <a href="pricing.html" class="drawer__item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>Pricing</a>
+  <a href="results.html" class="drawer__item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M6 4h12v4a6 6 0 01-12 0zM6 6H3v2a3 3 0 003 3M18 6h3v2a3 3 0 01-3 3M9 18h6M10 14h4v4h-4z"/></svg>Client Results</a>
+  <button class="drawer__item" id="shopToggle" aria-expanded="false" aria-controls="shopSub"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M6 7h12l1 14H5zM9 7a3 3 0 016 0"/></svg>Shop<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+  <div class="drawer__sub" id="shopSub">
+    <a href="ebooks.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M3 4h7a3 3 0 013 3v13a2 2 0 00-2-2H3zM21 4h-7a3 3 0 00-3 3v13a2 2 0 012-2h8z"/></svg>E-books</a>
+    <a href="bundle.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M6 7h12l1 14H5zM9 7a3 3 0 016 0"/></svg>Ebook Bundle</a>
+  </div>
+  <a href="macros.html" class="drawer__item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8 7h8M8 11h2M12 11h2M16 11h.01M8 15h2M12 15h2M16 15h.01"/></svg>Macro Calculator</a>
+  <a href="faqs.html" class="drawer__item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 015 0c0 2-2.5 2-2.5 4M12 17h.01"/></svg>FAQs</a>
+  <div class="drawer__foot">
+    <a href="contact.html" class="btn btn--primary">Book a Free Consult</a>
+    <a href="tel:0402451924" class="btn btn--ghost" style="color:#fff;border-color:rgba(255,255,255,.4)">Call Daniel</a>
+  </div>
+</div>
+<main>
+<section class="s prodwrap"><div class="wrap">
+  <div class="crumb reveal"><a href="ebooks.html">Shop</a><i>/</i><a href="ebooks.html">E-books</a><i>/</i><span>Meal Prep Made Simple</span></div>
+  <div class="prod">
+    <div class="prod__cover reveal"><img src="photos/ebook-mealprep/p-000.jpg" alt="Meal Prep Made Simple ebook cover"></div>
+    <div class="prod__info reveal">
+      <div class="eyebrow">Digital guide · E-book</div>
+      <h1 class="prod__title">Meal Prep Made Simple</h1>
+      <div class="prod__stars">★★★★★ <span>Loved by Daniel's clients</span></div>
+      <div class="prod__price">$25.99 <small>AUD · instant download</small></div>
+      <p class="prod__tag lead">Prep once, eat well all week — a repeatable system that takes the daily decision out of eating healthy.</p>
+      <ul class="prod__list"><li>A simple, repeatable weekly prep system</li><li>Batch-cook without burning a whole Sunday</li><li>Storage &amp; reheating that keeps food fresh</li><li>Balanced meal templates to mix &amp; match</li><li>A shopping list that makes prep faster</li></ul>
+      <div class="prod__cta">
+        <button class="btn btn--primary btn--lg add-cart" data-title="Meal Prep Made Simple" data-price="25.99">Add to cart — $25.99</button>
+        <a href="bundle.html" class="btn btn--ghost btn--lg">Get all 7 — save $53</a>
+      </div>
+      <div class="prod__meta"><span>Instant PDF</span><span>Read on any device</span><span>By Daniel Delahunty</span></div>
+    </div>
+  </div>
+</div></section>
+
+<section class="s s--dark"><div class="wrap">
+  <div class="s-head center reveal"><div class="eyebrow">A peek inside</div><div class="h-sub">See it before you buy.</div></div>
+  <div class="peek"><figure class="reveal"><img src="photos/ebook-mealprep/p-004.jpg" alt="A page from Meal Prep Made Simple" loading="lazy"></figure><figure class="reveal"><img src="photos/ebook-mealprep/p-005.jpg" alt="A page from Meal Prep Made Simple" loading="lazy"></figure><figure class="reveal"><img src="photos/ebook-mealprep/p-019.jpg" alt="A page from Meal Prep Made Simple" loading="lazy"></figure></div>
+  <p class="peek__note reveal">A few real pages from inside the guide.</p>
+</div></section>
+
+<section class="s"><div class="wrap">
+  <div class="inside reveal">
+    <div class="eyebrow">Inside this guide</div>
+    <h2 class="h-sub" style="margin-top:12px">What you'll learn.</h2>
+    <p>Most people quit healthy eating because it's a daily decision. Meal Prep Made Simple removes the decision — one short session sets you up for the week, so the easy choice is also the right one.</p><p>It's a repeatable system: pick your meals, batch-cook smart, store it right, and never resort to the drive-through because you're out of options.</p>
+    <div class="bestfor"><strong>Best for</strong>Busy people who want healthy eating to run on autopilot.</div>
+  </div>
+</div></section>
+
+<section class="s" style="padding-top:0"><div class="wrap">
+  <div class="buystrip reveal">
+    <h2>Start reading <em>today.</em></h2>
+    <p>Instant download, yours to keep, read on any device. Or get all seven guides together and save $53.</p>
+    <div class="buystrip__cta">
+      <button class="btn btn--ondark btn--lg add-cart" data-title="Meal Prep Made Simple" data-price="25.99">Add Meal Prep Made Simple — $25.99</button>
+      <a href="bundle.html" class="btn btn--primary btn--lg">Get the bundle — $129</a>
+    </div>
+  </div>
+</div></section>
+
+<section class="s" style="padding-top:0"><div class="wrap">
+  <div class="s-head reveal"><div class="eyebrow">Keep going</div><h2 class="h-sub" style="margin-top:10px">More guides you'll like.</h2></div>
+  <div class="books"><article class="book reveal"><div class="book__img"><a href="ebook-flexible.html"><img src="photos/ebook-flexible/p-000.jpg" alt="Flexible Dieting ebook cover" loading="lazy"></a></div><div class="book__b"><h3><a href="ebook-flexible.html">Flexible Dieting</a></h3><div class="book__price">$25.99</div><p>Eat the foods you love and still hit your goals.</p><div class="book__act"><a href="ebook-flexible.html" class="btn btn--ghost">Preview</a><button class="btn btn--primary add-cart" data-title="Flexible Dieting" data-price="25.99">Add</button></div></div></article><article class="book reveal"><div class="book__img"><a href="ebook-fuel.html"><img src="photos/ebook-fuel/p-000.jpg" alt="Fuel For Life ebook cover" loading="lazy"></a></div><div class="book__b"><h3><a href="ebook-fuel.html">Fuel For Life</a></h3><div class="book__price">$25.99</div><p>Everyday nutrition that keeps you going.</p><div class="book__act"><a href="ebook-fuel.html" class="btn btn--ghost">Preview</a><button class="btn btn--primary add-cart" data-title="Fuel For Life" data-price="25.99">Add</button></div></div></article><article class="book reveal"><div class="book__img"><a href="ebook-inflammation.html"><img src="photos/ebook-inflammation/img-003.jpg" alt="Inflammation Reset ebook cover" loading="lazy"></a></div><div class="book__b"><h3><a href="ebook-inflammation.html">Inflammation Reset</a></h3><div class="book__price">$25.99</div><p>Eat to recover and feel lighter.</p><div class="book__act"><a href="ebook-inflammation.html" class="btn btn--ghost">Preview</a><button class="btn btn--primary add-cart" data-title="Inflammation Reset" data-price="25.99">Add</button></div></div></article></div>
+</div></section>
+</main>
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer__top">
+      <div>
+        <div class="footer__brand">Daniel Delahunty</div>
+        <p style="margin-top:8px;max-width:32ch;font-size:14px">Sustainable coaching for results you keep. Gold Coast &amp; online.</p>
+      </div>
+      <div class="footer__links">
+        <div class="footer__col"><h4>Coaching</h4><a href="coaching.html">Coaching</a><a href="pricing.html">Pricing</a><a href="results.html">Results</a><a href="ebooks.html">Ebooks</a></div>
+        <div class="footer__col"><h4>Shop</h4><a href="ebooks.html">All E-books</a><a href="bundle.html">The Bundle</a><a href="macros.html">Macro Calculator</a></div>
+        <div class="footer__col"><h4>Connect</h4><a href="mailto:pt@danieldelahunty.com">Email</a><a href="tel:0402451924">0402 451 924</a><a href="https://instagram.com/hardazbodz" target="_blank" rel="noopener">Instagram</a><a href="https://facebook.com/delahuntyfitness" target="_blank" rel="noopener">Facebook</a></div>
+      </div>
+    </div>
+    <div class="footer__bot"><span>© 2026 Daniel Delahunty. All rights reserved.</span><span>Sustainable personal training · Gold Coast, AU</span></div>
+  </div>
+</footer>
+<script src="assets/daniel.js" defer></script>
+</body>
+</html>
