@@ -131,15 +131,15 @@ document.querySelectorAll('.rmq').forEach(rmq=>{
     return {nSingles,rate,sub,disc,total:sub-disc,hasBundle:c.some(isBundle)};
   }
   function nudgeFor(pr){
-    if(pr.hasBundle)return 'Best value unlocked — the full 7-guide library is in your cart.';
-    if(pr.nSingles===1)return 'Add one more guide and save 10% on both — applied automatically.';
-    if(pr.nSingles===2)return 'Add a third guide and save 20% on all of them.';
+    if(pr.hasBundle)return {t:'Best value unlocked — the full 7-guide library is in your cart.'};
+    if(pr.nSingles===1)return {t:'Add one more guide and save 10% on both — applied automatically.'};
+    if(pr.nSingles===2)return {t:'Add a third guide and save 20% on all of them.'};
     if(pr.nSingles>=3){
       const gap=129-pr.total;
-      if(gap<=0)return 'The full 7-guide bundle is $129 — cheaper than your cart right now. Switch and get everything.';
-      return `You're at $${(pr.total/pr.nSingles).toFixed(2)} a guide. The full library (all 7) is $129 — just $${gap.toFixed(2)} more for everything.`;
+      if(gap<=0)return {t:'The full 7-guide bundle is $129 — cheaper than your cart right now.',swap:true};
+      return {t:`You're at $${(pr.total/pr.nSingles).toFixed(2)} a guide. The full library (all 7) is $129 — just $${gap.toFixed(2)} more for everything.`,swap:true};
     }
-    return '';
+    return null;
   }
   function render(){
     const c=read();const badge=document.getElementById('cartBadge');
@@ -151,12 +151,14 @@ document.querySelectorAll('.rmq').forEach(rmq=>{
     const pr=pricing(c);
     const nudge=nudgeFor(pr);
     foot.innerHTML=
-      (nudge?`<div class="cart-nudge">${nudge}</div>`:'')+
+      (nudge?`<div class="cart-nudge">${nudge.t}${nudge.swap?'<button class="btn btn--primary" id="nudgeSwap" style="width:100%;justify-content:center;margin-top:10px;padding:10px;font-size:11.5px">Switch to the full bundle — $129</button>':''}</div>`:'')+
       (pr.disc>0?`<div class="cart-sub"><span>Subtotal</span><span>$${pr.sub.toFixed(2)}</span></div><div class="cart-disc"><span>Multi-guide discount (${Math.round(pr.rate*100)}%)</span><span>−$${pr.disc.toFixed(2)}</span></div>`:'')+
       `<div class="cart-total"><span>Total</span><span>$${pr.total.toFixed(2)} AUD</span></div><button class="btn btn--primary" id="cartCo">Checkout</button><p class="cart-note">Secure card checkout coming soon — for now your order goes straight to Daniel to complete &amp; send your downloads.</p>`;
     items.querySelectorAll('[data-inc]').forEach(b=>b.onclick=()=>{const c=read();c[+b.dataset.inc].q++;write(c)});
     items.querySelectorAll('[data-dec]').forEach(b=>b.onclick=()=>{const c=read();if(--c[+b.dataset.dec].q<=0)c.splice(+b.dataset.dec,1);write(c)});
     items.querySelectorAll('[data-rm]').forEach(b=>b.onclick=()=>{const c=read();c.splice(+b.dataset.rm,1);write(c)});
+    const sw=document.getElementById('nudgeSwap');
+    if(sw)sw.onclick=()=>write([{t:'All 7 Guides — Bundle',p:129,q:1}]);
     document.getElementById('cartCo').onclick=()=>{
       const c=read();const pr=pricing(c);
       let lines=c.map(i=>`${i.q} x ${i.t} - $${(i.p*i.q).toFixed(2)}`).join('%0D%0A');
