@@ -71,11 +71,10 @@ h2.display{font-size:clamp(34px,5vw,68px)}
 .hero__img{position:absolute;inset:0;z-index:0}
 .hero__img img{width:100%;height:100%;object-fit:cover;object-position:70% 30%;opacity:.55}
 .hero__img::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(22,24,28,.55) 0%,rgba(22,24,28,.35) 40%,rgba(22,24,28,.92) 100%)}
-/* desktop: keep the portrait at natural scale on the right, blended into the ink */
+/* desktop: purpose-built 16:9 hero image (outpainted), full bleed, no over-zoom */
 @media(min-width:1100px){
-  .hero__img{display:flex;justify-content:flex-end}
-  .hero__img img{width:46%;object-position:50% 18%;opacity:.78}
-  .hero__img::after{background:linear-gradient(90deg,#16181C 42%,rgba(22,24,28,.55) 62%,rgba(22,24,28,.15) 100%),linear-gradient(180deg,rgba(22,24,28,.3) 0%,rgba(22,24,28,.1) 45%,rgba(22,24,28,.95) 100%)}
+  .hero__img img{object-position:50% 18%;opacity:.7}
+  .hero__img::after{background:linear-gradient(90deg,rgba(22,24,28,.78) 0%,rgba(22,24,28,.3) 42%,rgba(22,24,28,0) 65%),linear-gradient(180deg,rgba(22,24,28,.35) 0%,rgba(22,24,28,.1) 45%,rgba(22,24,28,.94) 100%)}
 }
 .hero__in{position:relative;z-index:1;width:100%}
 .hero h1{margin:14px 0 0;max-width:16ch}
@@ -447,15 +446,15 @@ h2.display{font-size:clamp(34px,5vw,68px)}
 .buystrip p{color:rgba(255,255,255,.75);margin:16px auto 26px;max-width:48ch;font-size:16px}
 .buystrip__cta{display:flex;gap:13px;justify-content:center;flex-wrap:wrap}
 
-/* bundle: covers grid */
-.lib{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:46px}
-.lib a{display:block;border-radius:12px;overflow:hidden;background:var(--ink);border:1px solid var(--line);transition:.3s var(--e)}
-.lib a:hover{transform:translateY(-4px);box-shadow:0 18px 38px rgba(22,24,28,.14)}
+/* bundle: covers grid (flex so the 3-tile last row centres, no empty cell) */
+.lib{display:flex;flex-wrap:wrap;justify-content:center;gap:18px;margin-top:46px}
+.lib a{display:block;flex:0 0 calc(25% - 14px);border-radius:12px;overflow:hidden;background:var(--white);border:1px solid var(--line);transition:.3s var(--e)}
+.lib a:hover{transform:translateY(-4px);box-shadow:0 18px 38px rgba(0,0,0,.3)}
 .lib__img{aspect-ratio:3/4;overflow:hidden;background:var(--ink)}
 .lib__img img{width:100%;height:100%;object-fit:cover}
-.lib__t{padding:12px 13px;font-family:var(--head);font-weight:700;text-transform:uppercase;letter-spacing:.3px;font-size:12.5px;line-height:1.2;color:var(--ink)}
-@media(max-width:900px){.lib{grid-template-columns:repeat(3,1fr)}}
-@media(max-width:560px){.lib{grid-template-columns:repeat(2,1fr)}}
+.lib__t{padding:12px 13px;font-family:var(--head);font-weight:700;text-transform:uppercase;letter-spacing:.3px;font-size:12.5px;line-height:1.2;color:var(--ink);background:var(--white)}
+@media(max-width:900px){.lib a{flex-basis:calc(33.33% - 12px)}}
+@media(max-width:560px){.lib a{flex-basis:calc(50% - 9px)}}
 .savetag{display:inline-block;background:rgba(0,221,214,.12);border:1px dashed var(--accent-deep);color:var(--accent-deep);font-family:var(--head);font-weight:700;text-transform:uppercase;letter-spacing:1px;font-size:11.5px;padding:6px 13px;border-radius:7px;margin-top:14px}
 .strike{text-decoration:line-through;color:var(--slate-2);font-family:var(--ff);font-size:18px;font-weight:400}
 
