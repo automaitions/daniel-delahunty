@@ -1,6 +1,7 @@
 // nav solid on scroll
 const nav=document.getElementById('nav');
-const onScroll=()=>nav.classList.toggle('solid',window.scrollY>40);
+const navAlwaysSolid=nav.dataset.solid==='always';
+const onScroll=()=>nav.classList.toggle('solid',navAlwaysSolid||window.scrollY>40);
 onScroll();addEventListener('scroll',onScroll,{passive:true});
 // drawer
 const burger=document.getElementById('burger'),drawer=document.getElementById('drawer');
@@ -54,6 +55,40 @@ if(!/contact\.html$/.test(location.pathname)){
   bar.href='contact.html'; bar.className='cta-bar'; bar.textContent='Book a free consult →';
   document.body.appendChild(bar);
 }
+
+// ---- review marquee: auto-drift + arrows + user takeover ----
+document.querySelectorAll('.rmq').forEach(rmq=>{
+  const track=rmq.querySelector('.rmq__track'); if(!track)return;
+  const shell=document.createElement('div'); shell.className='rmq-shell';
+  rmq.parentNode.insertBefore(shell,rmq); shell.appendChild(rmq);
+  rmq.classList.add('rmq--js');
+  const half=()=>track.scrollWidth/2;
+  let auto=!matchMedia('(prefers-reduced-motion:reduce)').matches, idle;
+  const pause=ms=>{auto=false;clearTimeout(idle);idle=setTimeout(()=>auto=true,ms||4000)};
+  (function tick(){
+    if(auto)rmq.scrollLeft+=.6;
+    if(rmq.scrollLeft>=half())rmq.scrollLeft-=half();
+    requestAnimationFrame(tick);
+  })();
+  ['pointerdown','wheel','touchstart'].forEach(ev=>rmq.addEventListener(ev,()=>pause(),{passive:true}));
+  const arrow=dir=>{
+    const b=document.createElement('button');
+    b.className='rmq__arrow rmq__arrow--'+(dir>0?'next':'prev');
+    b.setAttribute('aria-label',dir>0?'Next reviews':'Previous reviews');
+    b.innerHTML=dir>0
+      ?'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>'
+      :'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>';
+    b.addEventListener('click',()=>{
+      pause(6000);
+      const card=track.querySelector('.quote');
+      const step=(card?card.offsetWidth:330)+20;
+      if(dir<0&&rmq.scrollLeft<step)rmq.scrollLeft+=half();
+      rmq.scrollBy({left:dir*step,behavior:'smooth'});
+    });
+    return b;
+  };
+  shell.appendChild(arrow(-1)); shell.appendChild(arrow(1));
+});
 
 // ---- ebook cart (client-side, localStorage) ----
 (function(){
