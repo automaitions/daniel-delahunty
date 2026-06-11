@@ -64,10 +64,18 @@ document.querySelectorAll('.rmq').forEach(rmq=>{
   rmq.classList.add('rmq--js');
   const half=()=>track.scrollWidth/2;
   let auto=!matchMedia('(prefers-reduced-motion:reduce)').matches, idle;
-  const pause=ms=>{auto=false;clearTimeout(idle);idle=setTimeout(()=>auto=true,ms||4000)};
+  // float accumulator: mobile browsers floor fractional scrollLeft, which stalls sub-pixel drift
+  let pos=rmq.scrollLeft;
+  const pause=ms=>{auto=false;clearTimeout(idle);idle=setTimeout(()=>{pos=rmq.scrollLeft;auto=true},ms||4000)};
   (function tick(){
-    if(auto)rmq.scrollLeft+=.6;
-    if(rmq.scrollLeft>=half())rmq.scrollLeft-=half();
+    const h=half();
+    if(auto){
+      pos+=.6;
+      if(pos>=h)pos-=h;
+      rmq.scrollLeft=pos;
+    }else if(h>0&&rmq.scrollLeft>=h){
+      rmq.scrollLeft-=h;
+    }
     requestAnimationFrame(tick);
   })();
   ['pointerdown','wheel','touchstart'].forEach(ev=>rmq.addEventListener(ev,()=>pause(),{passive:true}));
