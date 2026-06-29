@@ -168,8 +168,10 @@ function load(thumb, src){
   ifr.src=src;
   thumb.replaceWith(ifr);
 }
-function tile({tag,title,cue,sets,source,id}){
+function slug(s){return s.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');}
+function tile({tag,title,cue,sets,source,id,anchor}){
   const t=document.createElement('div');t.className='tile';
+  if(anchor){t.id=anchor;t.style.scrollMarginTop='90px';}
   const thumb=document.createElement('div');
   if(source==='yt'){
     thumb.className='thumb';
@@ -188,9 +190,9 @@ function tile({tag,title,cue,sets,source,id}){
   return t;
 }
 const g=(id)=>document.getElementById(id);
-coaching.forEach(([d,title,vid])=>g('coachGrid').appendChild(tile({tag:`Day ${d}`,title,source:'yt',id:vid})));
+coaching.forEach(([d,title,vid])=>g('coachGrid').appendChild(tile({tag:`Day ${d}`,title,source:'yt',id:vid,anchor:`day-${d}`})));
 [['p1Grid',p1],['p2aGrid',p2a],['p2bGrid',p2b]].forEach(([gid,arr])=>
-  arr.forEach(([name,sets,cue,src,id])=>g(gid).appendChild(tile({title:name,cue,sets,source:src,id})))
+  arr.forEach(([name,sets,cue,src,id])=>g(gid).appendChild(tile({title:name,cue,sets,source:src,id,anchor:slug(name)})))
 );
 </script>
 </body>
