@@ -12,7 +12,7 @@
 <style>
 :root{
   --ink:#16181C; --ink-2:#1E2127; --paper:#F6F4F1; --white:#fff;
-  --accent:#00DDD6; --accent-deep:#00B3AD; --slate:#5A6270; --slate-2:#8A9099;
+  --accent:#FF4D8D; --accent-deep:#D63A73; --slate:#5A6270; --slate-2:#8A9099;
   --line:#E4E0DB; --line-dark:#2C3037;
   --ff:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
   --display:"Anton",var(--ff); --head:"Archivo",var(--ff);
@@ -26,7 +26,7 @@ img{display:block;max-width:100%}
 
 /* hero */
 .phero{background:var(--ink);color:#fff;padding:clamp(48px,9vw,96px) 0 clamp(40px,7vw,72px);position:relative;overflow:hidden}
-.phero::after{content:"";position:absolute;right:-10%;top:-30%;width:60vw;height:120%;background:radial-gradient(circle,rgba(0,221,214,.16),transparent 60%);pointer-events:none}
+.phero::after{content:"";position:absolute;right:-10%;top:-30%;width:60vw;height:120%;background:radial-gradient(circle,rgba(255,77,141,.18),transparent 60%);pointer-events:none}
 .eyebrow{font-family:var(--head);font-weight:700;text-transform:uppercase;letter-spacing:2.5px;font-size:12px;color:var(--accent)}
 .phero h1{font-family:var(--display);font-weight:400;font-size:clamp(40px,8vw,82px);line-height:.95;margin:14px 0 0;text-transform:uppercase}
 .phero p{max-width:60ch;margin-top:18px;color:#C9CDD4;font-size:clamp(15px,2vw,18px)}
@@ -49,7 +49,7 @@ section:nth-of-type(even) .tile{background:var(--paper)}
 .thumb{position:relative;aspect-ratio:16/9;background:var(--ink-2);cursor:pointer;display:block;overflow:hidden}
 .thumb img{width:100%;height:100%;object-fit:cover;opacity:.92;transition:.3s var(--e)}
 .thumb:hover img{opacity:1;transform:scale(1.04)}
-.thumb.drive{display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#1E2127,#0d2b2a)}
+.thumb.drive{display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#1E2127,#2a0d1c)}
 .thumb.drive .dlabel{position:absolute;bottom:10px;left:12px;font-family:var(--head);font-weight:700;text-transform:uppercase;letter-spacing:1px;font-size:11px;color:rgba(255,255,255,.55)}
 .play{position:absolute;inset:0;margin:auto;width:58px;height:58px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;box-shadow:0 6px 20px rgba(0,0,0,.35);transition:.25s var(--e)}
 .thumb:hover .play{transform:scale(1.08)}
@@ -58,7 +58,7 @@ section:nth-of-type(even) .tile{background:var(--paper)}
 .daytag{font-family:var(--head);font-weight:700;text-transform:uppercase;letter-spacing:1px;font-size:11px;color:var(--accent-deep)}
 .tile__b h3{font-family:var(--head);font-weight:700;font-size:15.5px;line-height:1.25;margin-top:3px}
 .tile__b .cue{color:var(--slate);font-size:13px;margin-top:7px}
-.sets{display:inline-block;margin-top:9px;font-family:var(--head);font-weight:700;font-size:11px;letter-spacing:.5px;text-transform:uppercase;color:var(--ink);background:rgba(0,221,214,.16);border-radius:6px;padding:4px 9px}
+.sets{display:inline-block;margin-top:9px;font-family:var(--head);font-weight:700;font-size:11px;letter-spacing:.5px;text-transform:uppercase;color:var(--ink);background:rgba(255,77,141,.18);border-radius:6px;padding:4px 9px}
 .phase-h{font-family:var(--head);font-weight:800;text-transform:uppercase;letter-spacing:1px;font-size:14px;color:var(--ink);margin:30px 0 14px;display:flex;align-items:center;gap:12px}
 .phase-h::after{content:"";flex:1;height:1px;background:var(--line)}
 .phase-h:first-of-type{margin-top:6px}
