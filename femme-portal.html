@@ -161,27 +161,41 @@ const p2b = [
 
 const PLAY = '<span class="play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>';
 function ytThumb(id){return `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;}
-function load(thumb, src){
-  const ifr=document.createElement('iframe');
-  ifr.allow="accelerometer;autoplay;encrypted-media;gyroscope;picture-in-picture;fullscreen";
-  ifr.allowFullscreen=true;
-  ifr.src=src;
-  thumb.replaceWith(ifr);
+const byAnchor={};
+function embedSrc(v){
+  return v.source==='yt'
+    ? `https://www.youtube-nocookie.com/embed/${v.id}?autoplay=1&rel=0&playsinline=1`
+    : `https://drive.google.com/file/d/${v.id}/preview`;
+}
+function openVideo(anchor,push){
+  const v=byAnchor[anchor]; if(!v) return;
+  const lb=document.getElementById('lb'), fr=document.getElementById('lbFrame');
+  fr.innerHTML=`<iframe src="${embedSrc(v)}" allow="accelerometer;autoplay;encrypted-media;gyroscope;picture-in-picture;fullscreen;web-share" allowfullscreen style="width:100%;height:100%;border:0;background:#000"></iframe>`;
+  lb.hidden=false; lb.style.display='flex'; document.body.style.overflow='hidden';
+  if(push!==false) history.pushState({v:anchor},'', '#'+anchor);
+  const rf=lb.requestFullscreen||lb.webkitRequestFullscreen;
+  if(rf){ try{ const p=rf.call(lb); if(p&&p.catch) p.catch(()=>{}); }catch(e){} }
+}
+function closeVideo(){
+  const lb=document.getElementById('lb'), fr=document.getElementById('lbFrame');
+  if(lb.hidden) return;
+  lb.hidden=true; lb.style.display='none'; fr.innerHTML=''; document.body.style.overflow='';
+  if(document.fullscreenElement){ try{ document.exitFullscreen(); }catch(e){} }
 }
 function slug(s){return s.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');}
 function tile({tag,title,cue,sets,source,id,anchor}){
   const t=document.createElement('div');t.className='tile';
   if(anchor){t.id=anchor;t.style.scrollMarginTop='90px';}
   const thumb=document.createElement('div');
+  if(anchor) byAnchor[anchor]={source,id,title};
   if(source==='yt'){
     thumb.className='thumb';
     thumb.innerHTML=`<img loading="lazy" src="${ytThumb(id)}" alt="">${PLAY}`;
-    thumb.onclick=()=>load(thumb,`https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0`);
   }else{
     thumb.className='thumb drive';
     thumb.innerHTML=`${PLAY}<span class="dlabel">Demo</span>`;
-    thumb.onclick=()=>load(thumb,`https://drive.google.com/file/d/${id}/preview`);
   }
+  thumb.onclick=()=>openVideo(anchor);
   t.appendChild(thumb);
   const b=document.createElement('div');b.className='tile__b';
   b.innerHTML=(tag?`<span class="daytag">${tag}</span>`:'')+`<h3>${title}</h3>`+
@@ -194,6 +208,23 @@ coaching.forEach(([d,title,vid])=>g('coachGrid').appendChild(tile({tag:`Day ${d}
 [['p1Grid',p1],['p2aGrid',p2a],['p2bGrid',p2b]].forEach(([gid,arr])=>
   arr.forEach(([name,sets,cue,src,id])=>g(gid).appendChild(tile({title:name,cue,sets,source:src,id,anchor:slug(name)})))
 );
+
+// fullscreen video lightbox
+document.body.insertAdjacentHTML('beforeend',
+  `<div id="lb" hidden style="position:fixed;inset:0;z-index:9999;background:#000;display:none;align-items:center;justify-content:center">
+     <button id="lbX" aria-label="Close" style="position:absolute;top:14px;right:16px;z-index:2;width:46px;height:46px;border:0;border-radius:50%;background:rgba(255,255,255,.18);color:#fff;font-size:20px;cursor:pointer">&#10005;</button>
+     <div id="lbFrame" style="width:100%;height:100%;max-width:1280px"></div>
+   </div>`);
+document.getElementById('lbX').onclick=()=>history.back();
+document.getElementById('lb').addEventListener('click',e=>{ if(e.target.id==='lb') history.back(); });
+document.addEventListener('keydown',e=>{ if(e.key==='Escape' && !document.getElementById('lb').hidden && !document.fullscreenElement) history.back(); });
+window.addEventListener('popstate',()=>{ if(!document.getElementById('lb').hidden) closeVideo(); });
+document.addEventListener('fullscreenchange',()=>{ if(!document.fullscreenElement && !document.getElementById('lb').hidden) history.back(); });
+// auto-open the deep-linked video on arrival from the ebook
+(function(){
+  const a=decodeURIComponent((location.hash||'').slice(1));
+  if(a && byAnchor[a]){ const el=document.getElementById(a); if(el) el.scrollIntoView({block:'center'}); setTimeout(()=>openVideo(a,true),80); }
+})();
 </script>
 </body>
 </html>
