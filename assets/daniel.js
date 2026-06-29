@@ -127,26 +127,26 @@ document.querySelectorAll('.rmq').forEach(rmq=>{
     document.querySelectorAll('.add-cart').forEach(a=>{const t=a.dataset.title,p=parseFloat(a.dataset.price);const ex=c.find(i=>i.t===t);if(ex)ex.q++;else c.push({t,p,q:1});});
     write(c);open(true);const o=b.textContent;b.textContent='Added ✓';setTimeout(()=>b.textContent=o,1200);
   }));
-  // single source of truth for cart maths: 2 singles = 10% off singles, 3+ = 20%; bundle excluded
+  // single source of truth for cart maths: flat per-unit on CORE guides — 3+ core drops to $24.95 each;
+  // femme + bundle priced at their own price and excluded from the core-discount maths.
   const isBundle=i=>/bundle/i.test(i.t);
+  const isFemme=i=>/femme/i.test(i.t);
   function pricing(c){
-    const singles=c.filter(i=>!isBundle(i));
-    const nSingles=singles.reduce((s,i)=>s+i.q,0);
-    const rate=nSingles>=3?.2:nSingles>=2?.1:0;
-    const singlesSub=singles.reduce((s,i)=>s+i.p*i.q,0);
+    const core=c.filter(i=>!isBundle(i)&&!isFemme(i));
+    const nCore=core.reduce((s,i)=>s+i.q,0);
+    const perUnit=nCore>=3?24.95:29.95;
+    const coreTotal=perUnit*nCore;
+    const femmeSub=c.filter(isFemme).reduce((s,i)=>s+i.p*i.q,0);
+    const bundleSub=c.filter(isBundle).reduce((s,i)=>s+i.p*i.q,0);
     const sub=c.reduce((s,i)=>s+i.p*i.q,0);
-    const disc=singlesSub*rate;
-    return {nSingles,rate,sub,disc,total:sub-disc,hasBundle:c.some(isBundle)};
+    const disc=(29.95-perUnit)*nCore;
+    return {nCore,perUnit,sub,disc,total:coreTotal+femmeSub+bundleSub,hasBundle:c.some(isBundle)};
   }
   function nudgeFor(pr){
-    if(pr.hasBundle)return {t:'Best value unlocked — the full 7-guide library is in your cart.'};
-    if(pr.nSingles===1)return {t:'Add one more guide and save 10% on both — applied automatically.'};
-    if(pr.nSingles===2)return {t:'Add a third guide and save 20% on all of them.'};
-    if(pr.nSingles>=3){
-      const gap=129-pr.total;
-      if(gap<=0)return {t:'The full 7-guide bundle is $129 — cheaper than your cart right now.',swap:true};
-      return {t:`You're at $${(pr.total/pr.nSingles).toFixed(2)} a guide. The full library (all 7) is $129 — just $${gap.toFixed(2)} more for everything.`,swap:true};
-    }
+    if(pr.hasBundle)return {t:'Best value unlocked — the full 6-guide library is in your cart.'};
+    if(pr.nCore===1)return {t:'Add 2 more guides and they all drop to $24.95 each.'};
+    if(pr.nCore===2)return {t:'Add 1 more — all three drop to $24.95 each (~$74.95 for 3).'};
+    if(pr.nCore>=3&&pr.nCore<=5)return {t:"You're at $24.95 a guide. All 6 for $150 is the best value.",swap:true};
     return null;
   }
   function render(){
@@ -159,18 +159,18 @@ document.querySelectorAll('.rmq').forEach(rmq=>{
     const pr=pricing(c);
     const nudge=nudgeFor(pr);
     foot.innerHTML=
-      (nudge?`<div class="cart-nudge">${nudge.t}${nudge.swap?'<button class="btn btn--primary" id="nudgeSwap" style="width:100%;justify-content:center;margin-top:10px;padding:10px;font-size:11.5px">Switch to the full bundle — $129</button>':''}</div>`:'')+
-      (pr.disc>0?`<div class="cart-sub"><span>Subtotal</span><span>$${pr.sub.toFixed(2)}</span></div><div class="cart-disc"><span>Multi-guide discount (${Math.round(pr.rate*100)}%)</span><span>−$${pr.disc.toFixed(2)}</span></div>`:'')+
+      (nudge?`<div class="cart-nudge">${nudge.t}${nudge.swap?'<button class="btn btn--primary" id="nudgeSwap" style="width:100%;justify-content:center;margin-top:10px;padding:10px;font-size:11.5px">Switch to the full bundle — $150</button>':''}</div>`:'')+
+      (pr.disc>0?`<div class="cart-sub"><span>Subtotal</span><span>$${pr.sub.toFixed(2)}</span></div><div class="cart-disc"><span>Multi-guide discount</span><span>−$${pr.disc.toFixed(2)}</span></div>`:'')+
       `<div class="cart-total"><span>Total</span><span>$${pr.total.toFixed(2)} AUD</span></div><button class="btn btn--primary" id="cartCo">Checkout</button><p class="cart-note">Secure card checkout coming soon — for now your order goes straight to Daniel to complete &amp; send your downloads.</p>`;
     items.querySelectorAll('[data-inc]').forEach(b=>b.onclick=()=>{const c=read();c[+b.dataset.inc].q++;write(c)});
     items.querySelectorAll('[data-dec]').forEach(b=>b.onclick=()=>{const c=read();if(--c[+b.dataset.dec].q<=0)c.splice(+b.dataset.dec,1);write(c)});
     items.querySelectorAll('[data-rm]').forEach(b=>b.onclick=()=>{const c=read();c.splice(+b.dataset.rm,1);write(c)});
     const sw=document.getElementById('nudgeSwap');
-    if(sw)sw.onclick=()=>write([{t:'All 7 Guides — Bundle',p:129,q:1}]);
+    if(sw)sw.onclick=()=>write([{t:'All 6 Guides — Bundle',p:150,q:1}]);
     document.getElementById('cartCo').onclick=()=>{
       const c=read();const pr=pricing(c);
       let lines=c.map(i=>`${i.q} x ${i.t} - $${(i.p*i.q).toFixed(2)}`).join('%0D%0A');
-      if(pr.disc>0)lines+=`%0D%0ASubtotal: $${pr.sub.toFixed(2)}%0D%0AMulti-guide discount (${Math.round(pr.rate*100)}%25): -$${pr.disc.toFixed(2)}`;
+      if(pr.disc>0)lines+=`%0D%0ASubtotal: $${pr.sub.toFixed(2)}%0D%0AMulti-guide discount: -$${pr.disc.toFixed(2)}`;
       location.href=`mailto:pt@danieldelahunty.com?subject=Ebook order - $${pr.total.toFixed(2)} AUD&body=I'd like to order:%0D%0A${lines}%0D%0A%0D%0ATotal: $${pr.total.toFixed(2)} AUD%0D%0A%0D%0AName:%0D%0A(Daniel will reply with payment + download links)`;
     };
   }
@@ -201,7 +201,7 @@ document.querySelectorAll('.rmq').forEach(rmq=>{
   const R={
     rise:{n:'Rise Above — 8 Weeks',c:"An 8-week reset is your fastest honest start — custom training, your foods, and weekly check-ins to lock in the habits.",a:[['Book a free consult','contact.html','btn--primary'],['See Rise Above','rise-above.html','btn--ghost']]},
     lean:{n:'Lean For Life',c:"You've got momentum — ongoing coaching keeps it off for good, with a weekly check-in so you never rebound.",a:[['Book a free consult','contact.html','btn--primary'],['See Lean For Life','lean-for-life.html','btn--ghost']]},
-    guide:{n:'Start With A Guide',c:"Not ready to invest in coaching yet? Start with a guide ($25.99) or the full bundle ($129) and build the basics.",a:[['Browse the guides','ebooks.html','btn--primary'],['Book a free consult','contact.html','btn--ghost']]}
+    guide:{n:'Start With A Guide',c:"Not ready to invest in coaching yet? Start with a guide ($29.95) or all 6 for $150 and build the basics.",a:[['Browse the guides','ebooks.html','btn--primary'],['Book a free consult','contact.html','btn--ghost']]}
   };
   function show(n){steps.forEach((s,ix)=>s.classList.toggle('on',ix===n));fill.style.width=((n+1)/(steps.length+1)*100)+'%';}
   function pick(){
