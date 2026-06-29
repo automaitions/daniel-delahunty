@@ -173,8 +173,6 @@ function openVideo(anchor,push){
   fr.innerHTML=`<iframe src="${embedSrc(v)}" allow="accelerometer;autoplay;encrypted-media;gyroscope;picture-in-picture;fullscreen;web-share" allowfullscreen style="width:100%;height:100%;border:0;background:#000"></iframe>`;
   lb.hidden=false; lb.style.display='flex'; document.body.style.overflow='hidden';
   if(push!==false) history.pushState({v:anchor},'', '#'+anchor);
-  const rf=lb.requestFullscreen||lb.webkitRequestFullscreen;
-  if(rf){ try{ const p=rf.call(lb); if(p&&p.catch) p.catch(()=>{}); }catch(e){} }
 }
 function closeVideo(){
   const lb=document.getElementById('lb'), fr=document.getElementById('lbFrame');
@@ -212,14 +210,19 @@ coaching.forEach(([d,title,vid])=>g('coachGrid').appendChild(tile({tag:`Day ${d}
 // fullscreen video lightbox
 document.body.insertAdjacentHTML('beforeend',
   `<div id="lb" hidden style="position:fixed;inset:0;z-index:9999;background:#000;display:none;align-items:center;justify-content:center">
+     <button id="lbFS" aria-label="Fullscreen" title="Fullscreen" style="position:absolute;top:14px;right:70px;z-index:2;width:46px;height:46px;border:0;border-radius:50%;background:rgba(255,255,255,.18);color:#fff;font-size:19px;cursor:pointer">&#9974;</button>
      <button id="lbX" aria-label="Close" style="position:absolute;top:14px;right:16px;z-index:2;width:46px;height:46px;border:0;border-radius:50%;background:rgba(255,255,255,.18);color:#fff;font-size:20px;cursor:pointer">&#10005;</button>
      <div id="lbFrame" style="width:100%;height:100%"></div>
    </div>`);
 document.getElementById('lbX').onclick=()=>history.back();
+document.getElementById('lbFS').onclick=()=>{
+  const lb=document.getElementById('lb');
+  if(document.fullscreenElement){ (document.exitFullscreen||document.webkitExitFullscreen||function(){}).call(document); }
+  else { const rf=lb.requestFullscreen||lb.webkitRequestFullscreen; if(rf){ try{ const p=rf.call(lb); if(p&&p.catch) p.catch(()=>{}); }catch(e){} } }
+};
 document.getElementById('lb').addEventListener('click',e=>{ if(e.target.id==='lb') history.back(); });
 document.addEventListener('keydown',e=>{ if(e.key==='Escape' && !document.getElementById('lb').hidden && !document.fullscreenElement) history.back(); });
 window.addEventListener('popstate',()=>{ if(!document.getElementById('lb').hidden) closeVideo(); });
-document.addEventListener('fullscreenchange',()=>{ if(!document.fullscreenElement && !document.getElementById('lb').hidden) history.back(); });
 // auto-open the deep-linked video on arrival from the ebook
 (function(){
   const a=decodeURIComponent((location.hash||'').slice(1));
