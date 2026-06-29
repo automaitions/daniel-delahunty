@@ -45,3 +45,22 @@ promise ("Coaching that actually sticks", "Simple, honest pricing").
 ## Page map (as shipped)
 index · coaching · rise-above · lean-for-life · in-person · pricing · results ·
 ebooks (+7 ebook pages + bundle) · macros (working calculator) · faqs · contact.
+
+---
+
+## REVISION PASS — 2026-06-29 (client-dictated tweaks, not a re-build)
+Daniel voice memos (batch 16–20), relayed/approved by Beau. Literal copy/CSS
+edits to the already-strategised site above — the CA×Automaitions skill was not
+re-run for these; no positioning change.
+
+1. Hero brightness — lightened dark overlay + raised photo opacity so Daniel pops
+   (.85→.98 mobile / .92→1 desktop; bottom gradient .88→.72, .9→.74). Verified.
+2. Hero trust badges — "Gold Coast + online"→"In-Person & Online Coaching";
+   "25+ transformations coached"→"Body Transformations". (Pre-crash; confirmed.)
+3. Sustainable Loop — "the part nobody else does"→"…most don't". (Pre-crash; confirmed.)
+4. "Your foods, your p…" — OPEN. Transcript lost in crash; awaiting Beau re-send. Not touched.
+5. Femme Body Slimdown price — target $49.95; already $49.95 sitewide. No change.
+   Bundle ($69.95–$99.95) parked until more ebooks ship.
+
+Canonical repo = daniel-delahunty. daniel-delahunty-home is a stale split project;
+a misplaced post-crash edit there was reverted.
