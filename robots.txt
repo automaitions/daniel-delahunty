@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+Disallow: /coaching-v2.html
+Disallow: /home-only.html
+Disallow: /results-wall.html
+Disallow: /femme-portal.html
+Disallow: /thanks.html
+
+Sitemap: https://danieldelahunty.com.au/sitemap.xml
